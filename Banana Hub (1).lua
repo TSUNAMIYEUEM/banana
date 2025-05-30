@@ -1328,9 +1328,9 @@ Window = Fluent:CreateWindow({
     Title = "Banana Cat Hub-Blox Fruit [ Free ] By Noname",
     SubTitle = "",
     TabWidth = 155,
-    Size = UDim2.fromOffset(500, 350),
+    Size = UDim2.fromOffset(500, 500),
     Acrylic = false, 
-    Theme = "Light",
+    Theme = "Dark",
     MinimizeKey = Enum.KeyCode.LeftControl 
 })
 Shop = Window:AddTab({ Title = "Tab Shop", Icon = "" })
@@ -2555,17 +2555,21 @@ spawn(function()
 		end
 	end
 end)
-getgenv().FastAttack = true
-Toggle = Settings:AddToggle("Toggle", {Title = "Fast Attack", Default = true})
-local FastAttackTask
-local function FastAttackLoop()
-    while getgenv().FastAttack do
-        if type(AttackNoCoolDown) == "function" then
-            AttackNoCoolDown()
-        end
-        task.wait(0.1)
-    end
-end
+getgenv().FastAttackConfig = {
+    Enabled = getgenv().FastAttack[1],
+    AutoAttack = getgenv().FastAttack[2],
+    AttackPlayer = getgenv().FastAttackPlayer,
+    AttackMobs = getgenv().FastAttackMobs,
+    AttackRange = getgenv().AttackRange,
+    MaxTargets = getgenv().MaxTargets,
+    AttackDelay = 0.01,
+    AutoCleanEffects = true,
+    PerformanceMode = true,
+    BypassCooldown = true,
+    AttackMultiplier = 3,
+    HitDelay = 0
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/catdzs1tg/Shnichi-check-blox-kid/refs/heads/main/fastattack.lua"))()
 Toggle:OnChanged(function(Value)
     getgenv().FastAttack = Value
     if Value and not FastAttackTask then
